@@ -1,7 +1,7 @@
 use crate::NativeType;
 use sci_units_proc_macro::{SiAddSubtract, SiConvert, SiDisplay, SiMultiplyDivideScalar};
 
-use bincode::{Decode, Encode};
+use serde::{Deserialize, Serialize};
 
 use crate::{
     Acceleration, AngularAcceleration, AngularVelocity, Area, Force, Length, Mass, PlaneAngle,
@@ -60,7 +60,7 @@ const POUNDS_PER_KILOGRAM: NativeType = sealed::POUNDS_PER_KILOGRAM;
 const FOOT_POUNDS_PER_NEWTON_METER: NativeType = sealed::FOOT_POUNDS_PER_NEWTON_METER;
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = FEET_PER_METER, offset = ZERO_OFFSET, into = Length)]
 pub struct Feet {
@@ -68,7 +68,7 @@ pub struct Feet {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = YARDS_PER_METER, offset = ZERO_OFFSET, into = Length)]
 pub struct Yard {
@@ -76,7 +76,7 @@ pub struct Yard {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = INCHES_PER_METER, offset = ZERO_OFFSET, into = Length)]
 pub struct Inch {
@@ -84,7 +84,7 @@ pub struct Inch {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = MILES_PER_METER, offset = ZERO_OFFSET, into = Length)]
 pub struct Miles {
@@ -92,7 +92,7 @@ pub struct Miles {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = ACRES_PER_METER_SQUARED, offset = ZERO_OFFSET, into = Area)]
 pub struct Acres {
@@ -100,7 +100,7 @@ pub struct Acres {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = SQUARE_MILES_PER_METER_SQUARED, offset = ZERO_OFFSET, into = Area)]
 pub struct SquareMiles {
@@ -108,7 +108,7 @@ pub struct SquareMiles {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = PINTS_PER_METER_CUBED, offset = ZERO_OFFSET, into = Volume)]
 pub struct Pints {
@@ -116,7 +116,7 @@ pub struct Pints {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = QUARTS_PER_METER_CUBED, offset = ZERO_OFFSET, into = Volume)]
 pub struct Quarts {
@@ -124,7 +124,7 @@ pub struct Quarts {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = GALLONS_PER_METER_CUBED, offset = ZERO_OFFSET, into = Volume)]
 pub struct Gallons {
@@ -132,7 +132,7 @@ pub struct Gallons {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = DEGREES_PER_RADIAN, offset = ZERO_OFFSET, into = PlaneAngle)]
 pub struct Degrees {
@@ -140,7 +140,7 @@ pub struct Degrees {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = DEGREES_PER_RADIAN, offset = ZERO_OFFSET, into = AngularVelocity)]
 pub struct DegreesPerSecond {
@@ -148,7 +148,7 @@ pub struct DegreesPerSecond {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = DEGREES_PER_RADIAN, offset = ZERO_OFFSET, into = AngularAcceleration)]
 pub struct DegreesPerSecondSquared {
@@ -156,7 +156,7 @@ pub struct DegreesPerSecondSquared {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = FAHRENHEIT_PER_CELCIUS, offset = FAHRENHEIT_OFFSET, into = Temperature)]
 pub struct DegreesFahrenheit {
@@ -164,7 +164,7 @@ pub struct DegreesFahrenheit {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = RANKIN_PER_KELVIN, offset = ZERO_OFFSET, into = ThermodynamicTemperature)]
 pub struct DegreesRankine {
@@ -172,7 +172,7 @@ pub struct DegreesRankine {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = REVOLUTIONS_PER_RADIAN, offset = ZERO_OFFSET, into = PlaneAngle)]
 pub struct Revolutions {
@@ -180,7 +180,7 @@ pub struct Revolutions {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = REVOLUTIONS_PER_RADIAN_SECONDS_PER_MINUTE, offset = ZERO_OFFSET, into = AngularVelocity)]
 pub struct RevolutionsPerMinute {
@@ -188,7 +188,7 @@ pub struct RevolutionsPerMinute {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = NAUTICAL_MILES_PER_METER, offset = ZERO_OFFSET, into = Length)]
 pub struct NauticalMiles {
@@ -196,7 +196,7 @@ pub struct NauticalMiles {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = NAUTICAL_MILES_PER_METER_SECONDS_PER_HOUR, offset = ZERO_OFFSET, into = Velocity)]
 pub struct Knots {
@@ -204,7 +204,7 @@ pub struct Knots {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = FEET_PER_METER, offset = ZERO_OFFSET, into = Velocity)]
 pub struct FeetPerSecond {
@@ -212,7 +212,7 @@ pub struct FeetPerSecond {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = FEET_PER_METER, offset = ZERO_OFFSET, into = Acceleration)]
 pub struct FeetPerSecondSquared {
@@ -220,7 +220,7 @@ pub struct FeetPerSecondSquared {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = G_PER_ACCELERATION, offset = ZERO_OFFSET, into = Acceleration)]
 pub struct G {
@@ -228,7 +228,7 @@ pub struct G {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = POUNDS_FORCE_PER_NEWTON, offset = ZERO_OFFSET, into = Force)]
 pub struct PoundsForce {
@@ -236,7 +236,7 @@ pub struct PoundsForce {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = POUNDS_PER_KILOGRAM, offset = ZERO_OFFSET, into = Mass)]
 pub struct Pounds {
@@ -244,7 +244,7 @@ pub struct Pounds {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = OUNCES_PER_KILOGRAM, offset = ZERO_OFFSET, into = Mass)]
 pub struct Ounces {
@@ -252,7 +252,7 @@ pub struct Ounces {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = PSI_PER_PASCAL, offset = ZERO_OFFSET, into = Pressure)]
 pub struct PoundsPerSquareInch {
@@ -260,7 +260,7 @@ pub struct PoundsPerSquareInch {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = PSF_PER_PASCAL, offset = ZERO_OFFSET, into = Pressure)]
 pub struct PoundsPerSquareFoot {
@@ -268,7 +268,7 @@ pub struct PoundsPerSquareFoot {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = INCHES_MERCURY_PER_PASCAL, offset = ZERO_OFFSET, into = Pressure)]
 pub struct InchesMercury {
@@ -276,7 +276,7 @@ pub struct InchesMercury {
 }
 
 #[derive(
-    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Decode, Encode,
+    Copy, Clone, SiAddSubtract, SiMultiplyDivideScalar, SiDisplay, SiConvert, Deserialize, Serialize,
 )]
 #[parameters(multiplier = FOOT_POUNDS_PER_NEWTON_METER, offset = ZERO_OFFSET, into = Torque)]
 pub struct FootPounds {

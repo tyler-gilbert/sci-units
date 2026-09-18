@@ -261,7 +261,6 @@ fn gen_multiply(name: &syn::Ident, lhs: syn::Ident, rhs: syn::Ident) -> TokenStr
             }
         }
 
-
         impl core::ops::Div<#rhs> for #name {
             type Output = #lhs;
             fn div(self, rhs: #rhs) -> #lhs {
@@ -339,14 +338,12 @@ pub fn invert_macro_derive(input: TokenStream) -> TokenStream {
             }
         }
 
-
         impl core::ops::Div<#inv> for crate::Scalar {
             type Output = #name;
             fn div(self, inv: #inv) -> #name {
                #name::from(self.native / inv.native)
             }
         }
-
 
         impl core::ops::Div<#name> for crate::Scalar {
             type Output = #inv;
