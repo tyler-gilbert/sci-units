@@ -840,57 +840,79 @@ fn impl_display_macro(ast: &syn::DeriveInput) -> TokenStream {
 
     let generate = quote::quote! {
 
-      #[cfg(feature = "use_defmt")]
+      #[cfg(feature = "defmt")]
       impl defmt::Format for #name {
         fn format(&self, f: defmt::Formatter<'_>) {
           defmt::write!(f, "{} {}", self.native, #label);
         }
       }
 
-      #[cfg(feature = "std")]
       impl serde::Serialize for #name {
           fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
           where
               S: serde::Serializer,
           {
-              // Format however you want
-              let s = std::format!("{}_{}", self.native, #label);
-              serializer.serialize_str(&s)
+              #[cfg(feature = "std")]
+              {
+                  if serializer.is_human_readable() {
+                      let s = std::format!("{}_{}", self.native, #label);
+                      return serializer.serialize_str(&s);
+                  }
+
+                  return serde::Serialize::serialize(&self.native, serializer);
+              }
+
+              #[cfg(not(feature = "std"))]
+              {
+                  serde::Serialize::serialize(&self.native, serializer)
+              }
           }
       }
 
-      #[cfg(feature = "std")]
       impl<'de> serde::Deserialize<'de> for #name {
           fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
           where
               D: serde::Deserializer<'de>,
           {
-              struct UnitsVisitor;
+              #[cfg(feature = "std")]
+              {
+                  if deserializer.is_human_readable() {
+                      struct UnitsVisitor;
 
-              impl<'de> serde::de::Visitor<'de> for UnitsVisitor {
-                  type Value = #name;
+                      impl<'de> serde::de::Visitor<'de> for UnitsVisitor {
+                          type Value = #name;
 
-                  fn expecting(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-                      f.write_str(format!("a string like `10.0_{}`", #label).as_str())
-                  }
+                          fn expecting(&self, f: &mut core::fmt::Formatter) -> core::fmt::Result {
+                              write!(f, "a string like `10.0_{}`", #label)
+                          }
 
-                  fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
-                  where
-                      E: serde::de::Error,
-                  {
-                      // Expect format "<value>_meters"
-                      if let Some((value_str, #label)) = v.rsplit_once('_') {
-                          let native: crate::NativeType = value_str
-                              .parse()
-                              .map_err(|_| E::custom(format!("invalid float in {}", #label).as_str()))?;
-                          return Ok(#name { native });
+                          fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
+                          where
+                              E: serde::de::Error,
+                          {
+                              if let Some((value_str, #label)) = v.rsplit_once('_') {
+                                  let native: crate::NativeType = value_str
+                                      .parse()
+                                      .map_err(|_| E::custom(std::format!("invalid float in {}", #label)))?;
+                                  return Ok(#name { native });
+                              }
+
+                              Err(E::custom(std::format!("expected format `<float>_{}`", #label)))
+                          }
                       }
 
-                      Err(E::custom(format!("expected format `<float>_{}`", #label).as_str()))
+                      return deserializer.deserialize_str(UnitsVisitor);
                   }
+
+                  let native = <crate::NativeType as serde::Deserialize>::deserialize(deserializer)?;
+                  return Ok(#name { native });
               }
 
-              deserializer.deserialize_str(UnitsVisitor)
+              #[cfg(not(feature = "std"))]
+              {
+                  let native = <crate::NativeType as serde::Deserialize>::deserialize(deserializer)?;
+                  Ok(#name { native })
+              }
           }
       }
 
